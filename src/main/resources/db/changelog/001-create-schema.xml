@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- Create Users table -->
+    <changeSet id="001-create-users-table" author="developer">
+        <createTable tableName="users">
+            <column name="email" type="VARCHAR(70)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="INT" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Admin table -->
+    <changeSet id="002-create-admin-table" author="developer">
+        <createTable tableName="admin">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Vendor table -->
+    <changeSet id="003-create-vendor-table" author="developer">
+        <createTable tableName="vendor">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(200)"/>
+            <column name="contact" type="VARCHAR(30)"/>
+            <column name="email" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Employee table -->
+    <changeSet id="004-create-employee-table" author="developer">
+        <createTable tableName="employee">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="DATE"/>
+            <column name="email" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendor_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Customer table -->
+    <changeSet id="005-create-customer-table" author="developer">
+        <createTable tableName="customer">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="DATE"/>
+            <column name="contact" type="VARCHAR(20)"/>
+            <column name="address" type="VARCHAR(200)"/>
+            <column name="email" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_id" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Service Package table -->
+    <changeSet id="006-create-service-package-table" author="developer">
+        <createTable tableName="service_package">
+            <column name="package_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="package_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="package_description" type="VARCHAR(500)"/>
+            <column name="package_price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Service Request table -->
+    <changeSet id="007-create-service-request-table" author="developer">
+        <createTable tableName="service_request">
+            <column name="request_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="vehicle_type" type="VARCHAR(45)"/>
+            <column name="vehicle_model" type="VARCHAR(45)"/>
+            <column name="vehicle_brand" type="VARCHAR(45)"/>
+            <column name="vehicle_reg_no" type="VARCHAR(45)"/>
+            <column name="service_date" type="DATE"/>
+            <column name="out_date" type="DATE"/>
+            <column name="delivery_type" type="VARCHAR(20)"/>
+            <column name="customer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)"/>
+            <column name="labour_charges" type="DOUBLE" defaultValue="0.0"/>
+            <column name="discount" type="DOUBLE" defaultValue="1.0"/>
+            <column name="product_charges" type="DOUBLE" defaultValue="0.0"/>
+            <column name="total" type="DOUBLE" defaultValue="0.0"/>
+            <column name="package_id" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Stock table -->
+    <changeSet id="008-create-stock-table" author="developer">
+        <createTable tableName="stock">
+            <column name="stock_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_name" type="VARCHAR(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="price" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Feedback table -->
+    <changeSet id="009-create-feedback-table" author="developer">
+        <createTable tableName="feedback">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="feedback_message" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Offer table -->
+    <changeSet id="010-create-offer-table" author="developer">
+        <createTable tableName="offer">
+            <column name="offer_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="offer_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="offer_discount" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="min_value" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Question table -->
+    <changeSet id="011-create-question-table" author="developer">
+        <createTable tableName="question">
+            <column name="question_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="question" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
